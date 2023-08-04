@@ -1,13 +1,23 @@
-describe('Login Test', () => {
-  it('Logs in successfully', () => {
-    cy.visit('https://www.automationteststore.com/');
-    cy.contains('Login or register').click();
+describe("Login Test", () => {
+  it("Logs in successfully", () => {
+    cy.login()
+    // visit catagories
+    cy.get(
+      '[href="https://automationteststore.com/index.php?rt=product/category&path=36"]'
+    ).click({ force: true })
 
-    cy.get('#loginFrm_loginname').type('ramanpreetramanpreet');
-    cy.get('#loginFrm_password').type('ramanpreet');
+    // categories count
+    cy.get("ul.thumbnails img").should("have.length", 6)
 
-    cy.get('#loginFrm button[type="submit"]').click();
-    cy.contains('Welcome back ramanpreet').should('be.visible');
-    // Add assertions or further steps as needed
-  });
-});
+    // visit face category
+    cy.get(
+      '[href="https://automationteststore.com/index.php?rt=product/category&path=36_38"]'
+    )
+      .first()
+      .click({ force: true })
+
+    cy.title().should("eq", "Face")
+
+    cy.logout()
+  })
+})
