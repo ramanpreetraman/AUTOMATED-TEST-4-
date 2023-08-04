@@ -17,11 +17,13 @@ describe("Product Test", () => {
     cy.contains('a', 'Add to Cart').click();
 
     cy.contains('span', 'Shopping Cart')
-    cy.contains('a', 'Checkout')
-
+    cy.contains('a', 'Checkout').click({force: true})
+    cy.contains('span', 'Checkout Confirmation')
+    cy.get('#checkout_btn').click();
+    cy.contains('span', 'Your Order Has Been Processed!')
   })
 
   after(() => {
-    cy.logout()
+    // cy.logout()
   })
 })
