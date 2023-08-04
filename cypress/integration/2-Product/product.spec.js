@@ -1,11 +1,17 @@
 describe("Product Test", () => {
-  it("Logs in successfully", () => {
+  before(() => {
     cy.login()
+  })
+  it("Logs in successfully", () => {
     // visit catagories
-    cy.visit('https://automationteststore.com/index.php?rt=product/product&path=68_70&product_id=120')
+    cy.visit(
+      "https://automationteststore.com/index.php?rt=product/product&path=68_70&product_id=120"
+    )
 
     cy.title().should("eq", "Jersey Cotton Striped Polo Shirt")
+  })
 
+  after(() => {
     cy.logout()
   })
 })
